@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>autoComplete Test</title>
+    <link rel="stylesheet" href="./dist/css/autoComplete.css">
+</head>
+
+<body>
+
+    <input type="text" id="myInput">
+    <!---->
+    <button id="toggleDisabled">Disable Input</button>
+    <button id="start">Start()</button>
+    <!---->
+
+    <script type="module">
+        console.log('sdfsdf');
+        import autoComplete from "./src/autoComplete.js";
+
+       
+        document.getElementById("start").addEventListener("click", () => {
+            autoCompleteJS.start("a");
+        });
+
+        const autoCompleteJS = new autoComplete({
+            jmpEscClearsInput: true,
+            selector: "#myInput",
+            data: {
+                src: ["Apple", "blatz", "Banana", "Cherry", "Grape", "Orange"]
+            },
+            resultItem: {
+                highlight: true
+            },
+            events: {
+                input: {
+                    publicEvent() { },
+                    opennnnn() { alert("open"); },
+                    notAnEvent() { },
+                    selection: (event) => {
+                        autoCompleteJS.input.value = event.detail.selection.value;
+                    },
+                    clearrr() { alert("clear"); }
+                }
+            }
+        });
+        window.jmpctx = autoCompleteJS; // global var for console cl access
+
+        //setTimeout(() => { document.getElementById("myInput").disabled=true;}, 6000);
+
+        // Toggle the input's disabled state
+        /**/
+        const myInput = document.getElementById("myInput");
+        const toggleButton = document.getElementById("toggleDisabled");
+        myInput.style.marginTop = '200px';
+        toggleButton.style.marginTop = '200px';
+
+        toggleButton.addEventListener("click", () => {
+            myInput.disabled = !myInput.disabled;
+
+            toggleButton.textContent = myInput.disabled
+                ? "Enable Input"
+                : "Disable Input";
+        });
+        /**/
+
+    </script>
+
+</body>
+
+</html>
